@@ -8,34 +8,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
-public class CarService {
+public interface CarServiceInterface {
 
-    @Autowired
-    private CarRepository carRepository;
+    void saveCar(CarEntity carEntity);
 
-    @Autowired
-    private BrandRepository brandRepository;
+    Iterable<CarEntity> getCars();
 
-    public void saveCar(CarEntity carEntity) {
-        if (brandRepository.existsById(carEntity.getBrandEntity().getBrandId()))
-            carRepository.save(carEntity);
-    }
+    CarEntity getCarById(Long id);
 
-    public Iterable<CarEntity> getCars() {
-        return carRepository.findAll();
-    }
+    void updateCar(CarEntity carEntity);
 
-    public CarEntity getCarById(Long id) {
-        Optional<CarEntity> tempCar = carRepository.findById(id);
-        return tempCar.orElseGet(CarEntity::new);
-    }
-
-    public void updateCar(CarEntity carEntity) {
-        carRepository.save(carEntity);
-    }
-
-    public void deleteCarById(Long id) {
-        carRepository.deleteById(id);
-    }
+    void deleteCarById(Long id);
 }

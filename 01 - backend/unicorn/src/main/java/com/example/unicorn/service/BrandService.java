@@ -7,30 +7,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
-public class BrandService {
+public interface BrandServiceInterface {
 
-    @Autowired
-    private BrandRepository brandRepository;
+    void saveBrand(BrandEntity brandEntity);
 
-    public void saveBrand(BrandEntity brandEntity) {
-        brandRepository.save(brandEntity);
-    }
+    Iterable<BrandEntity> getBrands();
 
-    public Iterable<BrandEntity> getBrands() {
-        return brandRepository.findAll();
-    }
+    BrandEntity getBrandById(Long id);
 
-    public BrandEntity getBrandById(Long id) {
-        Optional<BrandEntity> tempBrand = brandRepository.findById(id);
-        return tempBrand.orElseGet(BrandEntity::new);
-    }
+    void updateBrand(BrandEntity brandEntity);
 
-    public void updateBrand(BrandEntity brandEntity) {
-        brandRepository.save(brandEntity);
-    }
-
-    public void deleteBrandById(Long id) {
-        brandRepository.deleteById(id);
-    }
+    void deleteBrandById(Long id);
 }

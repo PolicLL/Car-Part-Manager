@@ -7,30 +7,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
-public class ArticleService {
+public interface ArticleService {
 
-    @Autowired
-    private ArticleRepository articleRepository;
+    void saveArticle(ArticleEntity articleEntity);
 
-    public void saveArticle(ArticleEntity articleEntity) {
-        articleRepository.save(articleEntity);
-    }
+    Iterable<ArticleEntity> getArticles();
 
-    public Iterable<ArticleEntity> getArticles() {
-        return articleRepository.findAll();
-    }
+    ArticleEntity getArticleById(Long id);
 
-    public ArticleEntity getArticleById(Long id) {
-        Optional<ArticleEntity> tempArticle = articleRepository.findById(id);
-        return tempArticle.orElseGet(ArticleEntity::new);
-    }
+    void updateArticle(ArticleEntity articleEntity);
 
-    public void updateArticle(ArticleEntity articleEntity) {
-        articleRepository.save(articleEntity);
-    }
-
-    public void deleteArticleById(Long id) {
-        articleRepository.deleteById(id);
-    }
+    void deleteArticleById(Long id);
 }

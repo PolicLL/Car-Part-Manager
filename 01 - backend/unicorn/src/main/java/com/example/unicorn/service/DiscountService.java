@@ -8,33 +8,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
-public class DiscountService {
+public interface DiscountServiceInterface {
 
-    @Autowired
-    private DiscountRepository discountRepository;
+    void saveDiscount(DiscountEntity discountEntity);
 
-    @Autowired
-    private BrandRepository brandRepository;
+    Iterable<DiscountEntity> getDiscounts();
 
-    public void saveDiscount(DiscountEntity discountEntity) {
-        discountRepository.save(discountEntity);
-    }
+    DiscountEntity getDiscountById(Long id);
 
-    public Iterable<DiscountEntity> getDiscounts() {
-        return discountRepository.findAll();
-    }
+    void updateDiscount(DiscountEntity discountEntity);
 
-    public DiscountEntity getDiscountById(Long id) {
-        Optional<DiscountEntity> tempDiscount = discountRepository.findById(id);
-        return tempDiscount.orElseGet(DiscountEntity::new);
-    }
-
-    public void updateDiscount(DiscountEntity discountEntity) {
-        discountRepository.save(discountEntity);
-    }
-
-    public void deleteDiscountById(Long id) {
-        discountRepository.deleteById(id);
-    }
+    void deleteDiscountById(Long id);
 }
